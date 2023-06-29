@@ -1,0 +1,9 @@
+﻿<Application x:Class="furniture_store.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:furniture_store"
+             StartupUri="Windows/Store.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

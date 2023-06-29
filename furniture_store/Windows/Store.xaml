@@ -1,0 +1,111 @@
+﻿<Window x:Class="furniture_store.Windows.Store"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:furniture_store.Windows"
+        mc:Ignorable="d"
+        Title="Store" Height="450" Width="800" Icon="/furniture_store;component/Resources/icon.png">
+        
+    <Window.Resources>
+        <BitmapImage x:Key="notFound" UriSource="/Resources/noimg.jpg"></BitmapImage>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" x:Name="BtnDescending" Height="50" Width="175" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 15" Content="По убывание" Click="BtnDescending_Click"/>
+            <Button Grid.Column="1" x:Name="BtnDrop" Height="50" Width="175" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 15" Content="Сбросить" Click="BtnDrop_Click"/>
+            <Button Grid.Column="2" x:Name="BtnAscending" Height="50" Width="175" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 15" Content="По возрастанию" Click="BtnAscending_Click"/>
+        </Grid>
+
+        <ListView x:Name="ProductsListView" Grid.Row="1" Grid.Column="0" Margin="5" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="3" BorderBrush="Black">
+                        <Grid Width="{ Binding ActualWidth, ElementName=ProductsListView}" Height="140" Background="{ Binding ColorByDiscount }">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="20*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" x:Name="ProductImg" Source="{Binding ImgPath, FallbackValue={ StaticResource notFound}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="8*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="Название:" FontWeight="Bold"/>
+                                <TextBlock Grid.Row="1" Text="{ Binding name }" TextWrapping="Wrap"/>
+                            </Grid>
+                            <Grid Grid.Column="2" HorizontalAlignment="Right" Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="8*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="На складе:" FontWeight="Bold"/>
+                                <TextBlock Grid.Row="1" Text="{ Binding total_count }" TextWrapping="Wrap"/>
+                            </Grid>
+                            
+                            <Grid Grid.Column="3" HorizontalAlignment="Left" Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="8*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="Категория:" FontWeight="Bold"/>
+                                <TextBlock Grid.Row="1" Text="{ Binding category }" TextWrapping="Wrap"/>
+                            </Grid>
+                            
+                            <Grid Grid.Column="4" HorizontalAlignment="Left" Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="8*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="Цена:" FontWeight="Bold"/>
+                                <TextBlock Grid.Row="1" Text="{ Binding price }" TextWrapping="Wrap" VerticalAlignment="Top" TextDecorations="{ Binding PriceTextStyle }"/>
+                                <TextBlock Grid.Row="1" Text="{ Binding RriceWithDiscount }" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            </Grid>
+                            
+                            <Grid Grid.Column="5" HorizontalAlignment="Left" Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="8*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="Скидка:" FontWeight="Bold"/>
+                                <TextBlock Grid.Row="1" Text="{ Binding discount }" TextWrapping="Wrap"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ComboBox Name="CmbBoxType" Grid.Column="1" Grid.Row="1" Height="30" Width="140" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 5 0 0" SelectionChanged="CmbBoxType_SelectionChanged">
+            <ComboBoxItem IsSelected="True">Все диапазоны</ComboBoxItem>
+            <ComboBoxItem>0 - 10</ComboBoxItem>
+            <ComboBoxItem>10 - 15</ComboBoxItem>
+            <ComboBoxItem>15+</ComboBoxItem>
+        </ComboBox>
+    </Grid>
+</Window>
